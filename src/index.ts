@@ -441,8 +441,6 @@ function renderOrder(order: OrderData, email: string): string {
       <div class="section-title">Items (${order.line_items.length})</div>
       ${itemsHtml}
     </div>
-
-    <div class="footer"><a href="/" style="color:#94a3b8;">New lookup</a></div>
   `,
   );
 }
