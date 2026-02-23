@@ -1,0 +1,4 @@
+name = "even-checker"
+main = "src/index.ts"
+compatibility_date = "2025-02-23"
+account_id = "36940733b1e2c5d479253bce004597f3"
