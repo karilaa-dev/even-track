@@ -265,15 +265,15 @@ function page(title: string, body: string): string {
   button { padding: 0.7rem; background: #1e293b; color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 500; cursor: pointer; }
   button:hover { background: #334155; }
   .footer { text-align: center; color: #94a3b8; font-size: 0.75rem; margin-top: 1rem; }
-  .progress-wrapper { padding: 1.5rem 0 0.5rem; }
+  .progress-wrapper { padding: 1.5rem 0 0.5rem; overflow: hidden; }
   .progress { display: flex; align-items: flex-start; justify-content: space-between; position: relative; }
   .progress-track { position: absolute; top: 20px; left: 12.5%; right: 12.5%; height: 3px; background: #e2e8f0; z-index: 0; }
   .progress-fill { position: absolute; top: 20px; left: 12.5%; height: 3px; background: #22c55e; z-index: 1; }
-  .step { display: flex; flex-direction: column; align-items: center; z-index: 2; flex: 1; }
+  .step { display: flex; flex-direction: column; align-items: center; z-index: 2; flex: 1; min-width: 0; }
   .step-dot { width: 40px; height: 40px; border-radius: 10px; border: 2.5px solid #dce3eb; background: #fff; display: flex; align-items: center; justify-content: center; margin-bottom: 0.6rem; }
   .step.completed .step-dot { border-color: #22c55e; background: #22c55e; }
   .step.active .step-dot { border-color: #22c55e; background: #fff; }
-  .step-label { font-size: 0.75rem; color: #b0b8c4; text-align: center; }
+  .step-label { font-size: 0.75rem; color: #b0b8c4; text-align: center; max-width: 100%; word-wrap: break-word; overflow-wrap: break-word; }
   .step.completed .step-label { color: #1e293b; }
   .step.active .step-label { color: #1e293b; }
 </style>
@@ -332,7 +332,9 @@ function renderProgressBar(step: number): string {
   // Fill spans between dot centers: 0% at first dot, 100% at last dot
   // Track goes from 12.5% to 87.5% (center of first to center of last step in a 4-step layout)
   // Fill width relative to track: (step-1) / (numSteps-1) * 100%
-  const fillPct = Math.round(((step - 1) / (steps.length - 1)) * 100);
+  // Track spans from 12.5% to 87.5% (75% of container width).
+  // Fill width must be relative to the container, not the track, so scale by 0.75.
+  const fillPct = Math.round(((step - 1) / (steps.length - 1)) * 75);
 
   const stepsHtml = steps
     .map((label, i) => {
