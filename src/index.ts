@@ -343,8 +343,13 @@ function renderProgressBar(step: number): string {
         cls += " completed";
         dot = `<div class="step-dot">${checkSvg}</div>`;
       } else if (stepNum === step) {
-        cls += " active";
-        dot = `<div class="step-dot">${activeCheckSvg}</div>`;
+        if (step === steps.length) {
+          cls += " completed";
+          dot = `<div class="step-dot">${checkSvg}</div>`;
+        } else {
+          cls += " active";
+          dot = `<div class="step-dot">${activeCheckSvg}</div>`;
+        }
       } else {
         dot = `<div class="step-dot">${chevronSvg}</div>`;
       }
